@@ -1,191 +1,30 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dark Lords - Castle Battle Manual</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-</head><body class="bg-[#0a0d14] text-white min-h-screen">
-<header class="bg-[#151a26] border-b border-zinc-800 sticky top-0 z-40 px-4 py-3 flex justify-between items-center">
-<div class="flex gap-3 items-center"><div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-blue-600 rounded-xl flex items-center justify-center font-bold">DL</div><div><p class="font-bold text-[14px]">DARK LORDS - Castle Battle Manual</p><p class="text-[10px] text-purple-400">Manual Selection • You are the Commander</p></div></div>
-<div class="flex gap-2"><button onclick="switchTab('registry')" id="tabR" class="bg-purple-600 px-4 py-2 rounded-xl text-[11px] font-bold">📝 Player Registry</button><button onclick="switchTab('battle')" id="tabB" class="bg-zinc-800 px-4 py-2 rounded-xl text-[11px] font-bold">⚔️ Battle Teams</button></div>
-</header>
-
-<div id="registryTab" class="max-w-6xl mx-auto p-4">
-<div class="bg-[#1b2130] rounded-2xl border border-zinc-800 p-5">
-<h2 class="font-bold text-sm">📝 Add Player - Manual Input</h2>
-<p class="text-[10px] text-gray-400">Fill all details, then Submit. Data saved locally.</p>
-<div class="grid md:grid-cols-4 gap-3 mt-4">
-<div><label class="text-[10px] text-gray-400">Player Name *</label><input id="pName" class="w-full mt-1 bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs outline-none" placeholder="DarkLord123"></div>
-<div><label class="text-[10px] text-gray-400">Player Id *</label><input id="pId" class="w-full mt-1 bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs outline-none" placeholder="123456789"></div>
-<div><label class="text-[10px] text-gray-400">Total Power (M)</label><input id="totalPower" type="number" class="w-full mt-1 bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs outline-none" placeholder="e.g 150"></div>
-<div><label class="text-[10px] text-gray-400">Total Hero Power</label><input id="heroPower" type="number" class="w-full mt-1 bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs outline-none" placeholder="e.g 5.2M"></div>
-<div><label class="text-[10px] text-gray-400">Town Centre Level</label><select id="tcLevel" class="w-full mt-1 bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs"><option>< TC30</option><option>TG1</option><option>TG2</option><option>TG3</option><option>TG4</option><option>TG5</option></select></div>
-<div><label class="text-[10px] text-gray-400">Command Centre Level</label><select id="ccLevel" class="w-full mt-1 bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs"><option>< TC30</option><option>TG1</option><option>TG2</option><option>TG3</option><option>TG4</option><option>TG5</option></select></div>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dark Lords - Join Form</title><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-[#0a0d14] text-white min-h-screen p-4">
+<div class="max-w-2xl mx-auto bg-[#1b2130] rounded-2xl p-5 border border-zinc-800"><h2 class="font-bold">📝 Dark Lords - Player Submission</h2><p class="text-[10px] text-gray-400">Fill form → Submit → Send code to Admin on WhatsApp. Reset for next battle if needed.</p>
+<div class="grid grid-cols-2 gap-3 mt-4">
+<input id="pName" placeholder="Player Name *" class="bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs"><input id="pId" placeholder="Player ID *" class="bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs">
+<input id="alliance" placeholder="Alliance Name *" class="bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs"><input id="totalPower" type="number" placeholder="Total Power M" class="bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs">
+<input id="heroPower" type="number" placeholder="Hero Power" class="bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs"><select id="tcLevel" class="bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs"><option>< TC30</option><option>TG1</option><option>TG2</option><option>TG3</option><option>TG4</option><option>TG5</option></select>
+<select id="ccLevel" class="bg-[#2a3448] rounded-xl px-3 py-2.5 text-xs"><option>< TC30</option><option>TG1</option><option>TG2</option><option>TG3</option><option>TG4</option><option>TG5</option></select>
 </div>
-
-<div class="grid md:grid-cols-3 gap-3 mt-5">
-<div class="bg-[#252e42] rounded-xl p-3 border border-red-500/20"><p class="text-[11px] font-bold text-red-400">1st Slot - Infantry</p><label class="text-[9px] text-gray-400 mt-2 block">Select Hero</label><select id="infHero" class="w-full mt-1 bg-[#1b2130] rounded-lg px-2 py-2 text-xs"><option value="">Select</option><option>Amadeus</option><option>Zoe</option><option>Eric</option><option>Howard</option></select><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="text-[9px] text-gray-400">Skill Book Level</label><select id="infSkill" class="w-full mt-1 bg-[#1b2130] rounded-lg px-2 py-2 text-xs"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div><div><label class="text-[9px] text-gray-400">Exclusive Gear Level</label><select id="infGear" class="w-full mt-1 bg-[#1b2130] rounded-lg px-2 py-2 text-xs"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div></div></div>
-<div class="bg-[#252e42] rounded-xl p-3 border border-yellow-500/20"><p class="text-[11px] font-bold text-yellow-400">2nd Slot - Cavalry</p><label class="text-[9px] text-gray-400 mt-2 block">Select Hero</label><select id="cavHero" class="w-full mt-1 bg-[#1b2130] rounded-lg px-2 py-2 text-xs"><option value="">Select</option><option>Jabel</option><option>Hilde</option><option>Petra</option></select><div class="grid grid-cols-2 gap-2 mt-2"><div><label class="text-[9px] text-gray-400">Skill Book Level</label><select id="cavSkill" class="w-full mt-1 bg-[#1b2130] rounded-lg px-2 py-2 text-xs"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select></div><div><label class="text-[9px] text-gray-400">Exclusive Gear Level</label><select id="cavGear" class="w-full mt-1 bg-[#1b2130] rounded-lg px-2 py-2 text-xs"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div></div></div>
-<div class="bg-[#252e42] rounded-xl p-3 border border-blue-500/20"><p class="text-[11px] font-bold text-blue-400">3rd Slot - Archer</p><label class="text-[9px] text-gray-400 mt-2 block">Select Hero</label><select id="arcHero" class="w-full mt-1 bg-[#1b2130] rounded-lg px-2 py-2 text-xs"><option value="">Select</option><option>Saul</option><option>Mar
-  <div class="mt-6">
-<div class="flex justify-between items-center"><h3 class="font-bold text-xs">Saved Players (<span id="count">0</span>)</h3><div class="flex gap-2"><button onclick="exportRegistry()" class="bg-yellow-400 text-black px-3 py-1.5 rounded-lg text-[10px] font-bold">⬇ Excel Registry</button><button onclick="clearAll()" class="bg-red-900/30 text-red-400 px-3 py-1.5 rounded-lg text-[10px]">Clear All</button></div></div>
-<div class="overflow-x-auto mt-3"><table class="w-full text-[10px]"><thead class="text-gray-500 border-b border-zinc-800"><tr><th class="text-left py-2">Name / ID</th><th>Power</th><th>TC/CC</th><th>3 Heroes (Inf/Cav/Arc)</th><th>Exp Skill5</th><th>Troops Qty</th><th></th></tr></thead><tbody id="registryBody"></tbody></table></div>
+<div class="grid grid-cols-3 gap-2 mt-4">
+<div class="bg-[#252e42] p-2 rounded-xl"><p class="text-[10px] font-bold text-red-400">Infantry</p><select id="infHero" class="w-full mt-1 bg-[#1b2130] rounded px-2 py-1.5 text-xs"><option value="">Hero</option><option>Amadeus</option><option>Zoe</option><option>Eric</option><option>Howard</option></select><div class="grid grid-cols-2 gap-1 mt-1"><select id="infSkill" class="bg-[#1b2130] rounded px-1 py-1 text-[10px]"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><select id="infGear" class="bg-[#1b2130] rounded px-1 py-1 text-[10px]"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div></div>
+<div class="bg-[#252e42] p-2 rounded-xl"><p class="text-[10px] font-bold text-yellow-400">Cavalry</p><select id="cavHero" class="w-full mt-1 bg-[#1b2130] rounded px-2 py-1.5 text-xs"><option value="">Hero</option><option>Jabel</option><option>Hilde</option><option>Petra</option></select><div class="grid grid-cols-2 gap-1 mt-1"><select id="cavSkill" class="bg-[#1b2130] rounded px-1 py-1 text-[10px]"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><select id="cavGear" class="bg-[#1b2130] rounded px-1 py-1 text-[10px]"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div></div>
+<div class="bg-[#252e42] p-2 rounded-xl"><p class="text-[10px] font-bold text-blue-400">Archer</p><select id="arcHero" class="w-full mt-1 bg-[#1b2130] rounded px-2 py-1.5 text-xs"><option value="">Hero</option><option>Saul</option><option>Marlin</option><option>Jaeger</option></select><div class="grid grid-cols-2 gap-1 mt-1"><select id="arcSkill" class="bg-[#1b2130] rounded px-1 py-1 text-[10px]"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select><select id="arcGear" class="bg-[#1b2130] rounded px-1 py-1 text-[10px]"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div></div>
 </div>
+<div class="mt-3 bg-[#252e42] p-2 rounded-xl"><p class="text-[10px] font-bold">Exp Skill 5 Heroes</p><div class="flex flex-wrap gap-1 mt-1" id="expBox"></div></div>
+<div class="grid grid-cols-3 gap-2 mt-3">
+<div><input id="infQty" type="number" placeholder="Inf Qty" class="w-full bg-[#2a3448] rounded px-2 py-2 text-xs"><select id="infLvl" class="w-full mt-1 bg-[#1b2130] rounded px-2 py-1 text-xs"><option>< TC30</option><option>TG1</option><option>TG2</option><option>TG3</option><option>TG4</option><option>TG5</option></select></div>
+<div><input id="cavQty" type="number" placeholder="Cav Qty" class="w-full bg-[#2a3448] rounded px-2 py-2 text-xs"><select id="cavLvl" class="w-full mt-1 bg-[#1b2130] rounded px-2 py-1 text-xs"><option>< TC30</option><option>TG1</option><option>TG2</option><option>TG3</option><option>TG4</option><option>TG5</option></select></div>
+<div><input id="arcQty" type="number" placeholder="Arc Qty" class="w-full bg-[#2a3448] rounded px-2 py-2 text-xs"><select id="arcLvl" class="w-full mt-1 bg-[#1b2130] rounded px-2 py-1 text-xs"><option>< TC30</option><option>TG1</option><option>TG2</option><option>TG3</option><option>TG4</option><option>TG5</option></select></div>
 </div>
+<div class="flex gap-2 mt-4"><button onclick="submitForm()" class="bg-purple-600 flex-1 py-3 rounded-xl font-bold text-sm">✅ Submit & Generate Code</button><button onclick="resetForm()" class="bg-zinc-700 px-5 py-3 rounded-xl font-bold text-sm">🔄 Reset</button></div>
+<div id="codeBox" class="hidden mt-4 bg-[#252e42] p-3 rounded-xl"><p class="text-[11px] font-bold text-green-400">✅ Copy this code and send to Admin on WhatsApp:</p><textarea id="outCode" class="w-full mt-2 bg-[#0a0d14] rounded p-2 text-[9px] h-20"></textarea><button onclick="copyCode()" class="mt-2 bg-[#25D366] text-black px-4 py-2 rounded-lg text-xs font-bold w-full">📲 Copy & Open WhatsApp</button></div>
 </div>
-
-<div id="battleTab" class="max-w-7xl mx-auto p-4 hidden">
-<div class="grid lg:grid-cols-4 gap-3">
-<div class="bg-[#1b2130] rounded-2xl border border-blue-500/30 p-4">
-<h2 class="font-bold text-sm text-blue-400">🏰 Garrison Team</h2>
-<div class="mt-3 space-y-2" id="garrisonSlots"></div>
-</div>
-<div class="bg-[#1b2130] rounded-2xl border border-red-500/30 p-4">
-<h2 class="font-bold text-sm text-red-400">⚔️ Counter Rally - Team 1</h2>
-<div class="mt-3 space-y-2" id="counter1Slots"></div>
-</div>
-<div class="bg-[#1b2130] rounded-2xl border border-yellow-500/30 p-4">
-<h2 class="font-bold text-sm text-yellow-400">⚔️ Counter Rally - Team 2</h2>
-<div class="mt-3 space-y-2" id="counter2Slots"></div>
-</div>
-<div class="bg-[#1b2130] rounded-2xl border border-green-500/30 p-4">
-<h2 class="font-bold text-sm text-green-400">⚔️ Counter Rally - Team 3</h2>
-<div class="mt-3 space-y-2" id="counter3Slots"></div>
-</div>
-</div>
-<div class="mt-4 flex gap-2">
-<button onclick="generateBattleWA()" class="bg-[#25D366] text-black px-6 py-3 rounded-xl text-xs font-bold flex-1">📲 Copy WhatsApp Battle List</button>
-<button onclick="exportBattle()" class="bg-yellow-400 text-black px-6 py-3 rounded-xl text-xs font-bold flex-1">⬇ Export Battle Teams Excel</button>
-</div>
-<div id="battlePreview" class="mt-4 bg-[#1b2130] rounded-2xl border border-zinc-800 p-4 text-[11px] whitespace-pre-wrap"></div>
-</div>
-
-<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white text-black px-6 py-3 rounded-full text-xs font-bold hidden z-50"></div>
-
 <script>
-let players = JSON.parse(localStorage.getItem('dl_players')||'[]');
-let expSlotCount=4;
-let expOptions=['Howard','Gordan','Saul','Hilde','Chenko','Amane','Yenwoo'];
-let garrisonDefaults=['','Hilde','Saul','Gordan','Howard','','','','','','','','','',''];
-let counter1Defaults=['','Hilde','Chenko','Yenwoo','Amane','','','','','','','','','',''];
-let counter2Defaults=['','Hilde','Chenko','Yenwoo','Amane','','','','','','','','','',''];
-let counter3Defaults=['','Hilde','Yenwoo','Amane','Amane','','','','','','','','','',''];
-
-function switchTab(t){
- document.getElementById('registryTab').classList.toggle('hidden', t!=='registry');
- document.getElementById('battleTab').classList.toggle('hidden', t!=='battle');
- document.getElementById('tabR').className = t==='registry'? 'bg-purple-600 px-4 py-2 rounded-xl text-[11px] font-bold' : 'bg-zinc-800 px-4 py-2 rounded-xl text-[11px] font-bold';
- document.getElementById('tabB').className = t==='battle'? 'bg-purple-600 px-4 py-2 rounded-xl text-[11px] font-bold' : 'bg-zinc-800 px-4 py-2 rounded-xl text-[11px] font-bold';
- if(t==='battle'){ renderBattleSlots(); }
-}
-function addExtraExpSlot(){ expSlotCount++; renderExp(); }
-function renderExp(){
- const c=document.getElementById('expContainer'); c.innerHTML='';
- for(let i=0;i<expSlotCount;i++){
-   const sel=document.createElement('select'); sel.id='exp_'+i; sel.className='bg-[#1b2130] rounded-lg px-2 py-2 text-xs';
-   sel.innerHTML='<option value="">Select Hero</option>'+expOptions.map(o=>`<option>${o}</option>`).join('');
-   c.appendChild(sel);
- }
-}
-renderExp();
-function submitPlayer(){
- const data={
-  name: document.getElementById('pName').value.trim(),
-  id: document.getElementById('pId').value.trim(),
-  totalPower: document.getElementById('totalPower').value,
-  heroPower: document.getElementById('heroPower').value,
-  tc: document.getElementById('tcLevel').value,
-  cc: document.getElementById('ccLevel').value,
-  infHero: document.getElementById('infHero').value, infSkill: document.getElementById('infSkill').value, infGear: document.getElementById('infGear').value,
-  cavHero: document.getElementById('cavHero').value, cavSkill: document.getElementById('cavSkill').value, cavGear: document.getElementById('cavGear').value,
-  arcHero: document.getElementById('arcHero').value, arcSkill: document.getElementById('arcSkill').value, arcGear: document.getElementById('arcGear').value,
-  exp: [], infQty: document.getElementById('infQty').value, infLvl: document.getElementById('infLvl').value,
-  cavQty: document.getElementById('cavQty').value, cavLvl: document.getElementById('cavLvl').value,
-  arcQty: document.getElementById('arcQty').value, arcLvl: document.getElementById('arcLvl').value,
- };
- if(!data.name ||!data.id){ alert('Player Name and Id required'); return; }
- for(let i=0;i<expSlotCount;i++){ const v=document.getElementById('exp_'+i)?.value; if(v) data.exp.push(v); }
- const idx=players.findIndex(p=>p.id===data.id);
- if(idx>=0) players[idx]=data; else players.push(data);
- localStorage.setItem('dl_players', JSON.stringify(players));
- renderRegistry(); toast('Player Saved: '+data.name);
- document.getElementById('pName').value=''; document.getElementById('pId').value='';
-}
-function renderRegistry(){
- document.getElementById('count').innerText=players.length;
- const tb=document.getElementById('registryBody'); tb.innerHTML='';
- players.forEach((p,i)=>{
-  const tr=document.createElement('tr'); tr.className='border-b border-zinc-800/50';
-  tr.innerHTML=`<td class="py-2"><b>${p.name}</b><div class="text-[9px] text-gray-500">ID:${p.id} | P:${p.totalPower}M H:${p.heroPower}</div></td>
-  <td>${p.totalPower}M</td><td>${p.tc}/${p.cc}</td>
-  <td class="text-[9px]"><div>Inf:${p.infHero} S${p.infSkill} G${p.infGear}</div><div>Cav:${p.cavHero} S${p.cavSkill} G${p.cavGear}</div><div>Arc:${p.arcHero} S${p.arcSkill} G${p.arcGear}</div></td>
-  <td class="text-[9px] text-purple-300">${(p.exp||[]).join(', ')}</td>
-  <td class="text-[9px]">Inf:${p.infQty}(${p.infLvl})<br>Cav:${p.cavQty}(${p.cavLvl})<br>Arc:${p.arcQty}(${p.arcLvl})</td>
-  <td><button onclick="editPlayer(${i})" class="text-blue-400 mr-2">✏️</button><button onclick="players.splice(${i},1);localStorage.setItem('dl_players',JSON.stringify(players));renderRegistry()" class="text-red-400">✕</button></td>`;
-  tb.appendChild(tr);
- });
-}
-function editPlayer(i){
- const p=players[i];
- document.getElementById('pName').value=p.name; document.getElementById('pId').value=p.id;
- document.getElementById('totalPower').value=p.totalPower; document.getElementById('heroPower').value=p.heroPower;
- document.getElementById('tcLevel').value=p.tc; document.getElementById('ccLevel').value=p.cc;
- document.getElementById('infHero').value=p.infHero; document.getElementById('infSkill').value=p.infSkill; document.getElementById('infGear').value=p.infGear;
- document.getElementById('cavHero').value=p.cavHero; document.getElementById('cavSkill').value=p.cavSkill; document.getElementById('cavGear').value=p.cavGear;
- document.getElementById('arcHero').value=p.arcHero; document.getElementById('arcSkill').value=p.arcSkill; document.getElementById('arcGear').value=p.arcGear;
- document.getElementById('infQty').value=p.infQty; document.getElementById('infLvl').value=p.infLvl;
- document.getElementById('cavQty').value=p.cavQty; document.getElementById('cavLvl').value=p.cavLvl;
- document.getElementById('arcQty').value=p.arcQty; document.getElementById('arcLvl').value=p.arcLvl;
- expSlotCount=Math.max(p.exp.length,4); renderExp(); setTimeout(()=>{ p.exp.forEach((v,idx)=>{ const el=document.getElementById('exp_'+idx); if(el) el.value=v; }); },100);
- window.scrollTo(0,0);
-}
-function renderBattleSlots(){
- const makeSlots=(containerId,defaults)=>{
-  const c=document.getElementById(containerId); c.innerHTML='';
-  const labels=['Rally Leader:-','1st Joiner '+defaults[1]+'-','2nd Joiner '+defaults[2]+'-','3rd Joiner '+defaults[3]+'-','4th Joiner '+defaults[4]+'-','5th Joiner-','6th Joiner-','7th Joiner-','8th Joiner-','9th Joiner-','10th Joiner-','11th Joiner-','12th Joiner-','13th Joiner-','14th Joiner-'];
-  const playerOpts='<option value="">Select Player by Name/ID</option>'+players.map(p=>`<option value="${p.id}">${p.name} (${p.id}) - ${p.totalPower}M</option>`).join('');
-  labels.forEach((lab,idx)=>{
-    const div=document.createElement('div'); div.className='flex gap-2 items-center';
-    div.innerHTML=`<span class="text-[9px] text-gray-400 w-28">${lab}</span><select data-slot="${idx}" class="flex-1 bg-[#252e42] rounded-lg px-2 py-1.5 text-[10px]">${playerOpts}</select>`;
-    c.appendChild(div);
-  });
- };
- makeSlots('garrisonSlots',garrisonDefaults);
- makeSlots('counter1Slots',counter1Defaults);
- makeSlots('counter2Slots',counter2Defaults);
- makeSlots('counter3Slots',counter3Defaults);
- updatePreview();
- document.querySelectorAll('#battleTab select').forEach(s=> s.addEventListener('change', updatePreview));
-}
-function getTeamData(containerId){
- const selects=document.querySelectorAll('#'+containerId+' select'); const arr=[];
- selects.forEach(s=>{ const pid=s.value; const pl=players.find(p=>p.id===pid); arr.push(pl? `${pl.name} (${pl.id})` : '-'); });
- return arr;
-}
-function updatePreview(){
- const g=getTeamData('garrisonSlots'); const c1=getTeamData('counter1Slots'); const c2=getTeamData('counter2Slots'); const c3=getTeamData('counter3Slots');
- let txt=`🏰 GARRISON TEAM\n`; g.forEach((v,i)=>{ txt+=`${i===0?'Rally Leader': i+'th Joiner'}: ${v}\n`; });
- txt+=`\n⚔️ COUNTER RALLY - TEAM 1\n`; c1.forEach((v,i)=>{ txt+=`${i===0?'Rally Leader': i+'th Joiner'}: ${v}\n`; });
- txt+=`\n⚔️ COUNTER RALLY - TEAM 2\n`; c2.forEach((v,i)=>{ txt+=`${i===0?'Rally Leader': i+'th Joiner'}: ${v}\n`; });
- txt+=`\n⚔️ COUNTER RALLY - TEAM 3\n`; c3.forEach((v,i)=>{ txt+=`${i===0?'Rally Leader': i+'th Joiner'}: ${v}\n`; });
- document.getElementById('battlePreview').innerText=txt;
-}
-function generateBattleWA(){
- updatePreview(); const txt=document.getElementById('battlePreview').innerText;
- const finalTxt=`*🗡️ DARK LORDS - Castle Battle*\n\n`+txt+`\n\n🔗 ${location.href}`;
- navigator.clipboard.writeText(finalTxt).then(()=>toast('Battle List Copied for WhatsApp'));
-}
-function exportRegistry(){
- const rows=[['Player Registry - Dark Lords'],[],['Name','ID','Total Power','Hero Power','TC','CC','Inf Hero','Inf Skill','Inf Gear','Cav Hero','Cav Skill','Cav Gear','Arc Hero','Arc Skill','Arc Gear','Exp Skill5','Inf Qty','Inf Level','Cav Qty','Cav Level','Arc Qty','Arc Level']];
- players.forEach(p=>{ rows.push([p.name,p.id,p.totalPower,p.heroPower,p.tc,p.cc,p.infHero,p.infSkill,p.infGear,p.cavHero,p.cavSkill,p.cavGear,p.arcHero,p.arcSkill,p.arcGear,(p.exp||[]).join('/'),p.infQty,p.infLvl,p.cavQty,p.cavLvl,p.arcQty,p.arcLvl]); });
- const ws=XLSX.utils.aoa_to_sheet(rows); const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Registry'); XLSX.writeFile(wb,'DarkLords_Registry.xlsx');
-}
-function exportBattle(){
- updatePreview();
- const g=getTeamData('garrisonSlots'); const c1=getTeamData('counter1Slots'); const c2=getTeamData('counter2Slots'); const c3=getTeamData('counter3Slots');
- const rows=[['Castle Battle Teams'],[],['GARRISON TEAM'],['Slot','Player'],...g.map((v,i)=>[i===0?'Rally Leader':i+'th Joiner',v]),[],['COUNTER TEAM 1'],['Slot','Player'],...c1.map((v,i)=>[i===0?'Rally Leader':i+'th Joiner',v]),[],['COUNTER TEAM 2'],['Slot','Player'],...c2.map((v,i)=>[i===0?'Rally Leader':i+'th Joiner',v]),[],['COUNTER TEAM 3'],['Slot','Player'],...c3.map((v,i)=>[i===0?'Rally Leader':i+'th Joiner',v]),[],['Registry'],['Name','ID','Total Power','Hero Power','TC','CC','Inf Hero','Inf Skill','Inf Gear','Cav Hero','Cav Skill','Cav Gear','Arc Hero','Arc Skill','Arc Gear','Exp Skill5'],...players.map(p=>[p.name,p.id,p.totalPower,p.heroPower,p.tc,p.cc,p.infHero,p.infSkill,p.infGear,p.cavHero,p.cavSkill,p.cavGear,p.arcHero,p.arcSkill,p.arcGear,(p.exp||[]).join('/')])];
- const ws=XLSX.utils.aoa_to_sheet(rows); const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Battle Teams'); XLSX.writeFile(wb,'DarkLords_BattleTeams.xlsx');
-}
-function clearAll(){ if(confirm('Clear all players?')){ players=[]; localStorage.removeItem('dl_players'); renderRegistry(); }}
-function toast(m){ const el=document.getElementById('toast'); el.innerText=m; el.classList.remove('hidden'); setTimeout(()=>el.classList.add('hidden'),2500); }
-renderRegistry();
+let exps=[], opts=['Howard','Gordan','Saul','Hilde','Chenko','Amane','Yenwoo'];
+function renderExp(){document.getElementById('expBox').innerHTML=opts.map(o=>`<button onclick="toggleExp('${o}')" class="text-[9px] px-2 py-1 rounded-full border ${exps.includes(o)?'bg-purple-600 border-purple-400':'bg-[#1b2130] border-zinc-700'}">${o}</button>`).join('');}
+function toggleExp(o){if(exps.includes(o))exps=exps.filter(x=>x!==o);else exps.push(o);renderExp();}renderExp();
+function submitForm(){const data={name:document.getElementById('pName').value.trim(),id:document.getElementById('pId').value.trim(),alliance:document.getElementById('alliance').value.trim(),totalPower:document.getElementById('totalPower').value,heroPower:document.getElementById('heroPower').value,tc:document.getElementById('tcLevel').value,cc:document.getElementById('ccLevel').value,infHero:document.getElementById('infHero').value,infSkill:document.getElementById('infSkill').value,infGear:document.getElementById('infGear').value,cavHero:document.getElementById('cavHero').value,cavSkill:document.getElementById('cavSkill').value,cavGear:document.getElementById('cavGear').value,arcHero:document.getElementById('arcHero').value,arcSkill:document.getElementById('arcSkill').value,arcGear:document.getElementById('arcGear').value,exp:exps,infQty:document.getElementById('infQty').value,infLvl:document.getElementById('infLvl').value,cavQty:document.getElementById('cavQty').value,cavLvl:document.getElementById('cavLvl').value,arcQty:document.getElementById('arcQty').value,arcLvl:document.getElementById('arcLvl').value};if(!data.name||!data.id||!data.alliance){alert('Name, ID, Alliance required');return;}const code=btoa(JSON.stringify(data));document.getElementById('outCode').value=code;document.getElementById('codeBox').classList.remove('hidden');window.lastCode=code;window.lastName=data.name;}
+function copyCode(){navigator.clipboard.writeText(window.lastCode).then(()=>{const wa=`https://wa.me/?text=${encodeURIComponent('Dark Lords Join - '+window.lastName+' Code: '+window.lastCode)}`;window.open(wa,'_blank');});}
+function resetForm(){if(!confirm('Reset form for next battle?'))return;document.querySelectorAll('input').forEach(i=>i.value='');document.querySelectorAll('select').forEach(s=>s.selectedIndex=0);exps=[];renderExp();document.getElementById('codeBox').classList.add('hidden');}
 </script></body></html>
