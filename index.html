@@ -7,7 +7,7 @@
 
 <div class="grid lg:grid-cols-3 gap-3">
 <div class="lg:col-span-2 bg-[#1b2130] rounded-2xl p-4 border border-zinc-800">
-<h2 class="font-bold text-xs mb-3">👤 Player Information</h2>
+<h2 class="font-bold text-xs mb-3">👤 Player Name</h2>
 <div class="grid grid-cols-2 gap-2">
 <input id="pName" placeholder="Player Name *" class="bg-[#252e42] p-3 rounded-xl text-xs">
 <input id="pId" placeholder="Player ID *" class="bg-[#252e42] p-3 rounded-xl text-xs">
@@ -41,7 +41,7 @@
 
 <h2 class="font-bold text-xs mt-5 mb-2 text-yellow-300">⭐ 1 Expedition - Skill 5 Heroes</h2>
 <div id="expContainer" class="flex flex-wrap gap-2"></div>
-<button onclick="addExp()" class="mt-2 bg-zinc-700 px-3 py-1.5 rounded-full text-[10px]">+ 1 Expedition Skill LvL 5 Hero</button>
+<button onclick="addExp()" class="mt-2 bg-zinc-700 px-3 py-1.5 rounded-full text-[10px]">+ 1 Add More</button>
 
 <h2 class="font-bold text-xs mt-5 mb-2 text-blue-300">🪖 Troops Quantity & Level</h2>
 <div class="grid grid-cols-3 gap-2">
@@ -63,7 +63,7 @@
 <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white text-black px-6 py-3 rounded-full text-xs font-bold hidden z-50"></div>
 <script>
 const DB_URL="https://dark-lords-registry-default-rtdb.firebaseio.com";
-let allPlayers=[], expCount=4, expOpts=['Howard','Gordan','Saul','Hilde','Chenko','Amane','Yenwoo','Kane','Stella','Yui'];
+let allPlayers=[], expCount=4, expOpts=['Howard','Gordan','Saul','Hilde','Chenko','Amane','Yenwoo'];
 function renderExp(){const c=document.getElementById('expContainer');c.innerHTML='';for(let i=0;i<expCount;i++){const s=document.createElement('select');s.id='exp_'+i;s.className='bg-[#252e42] border border-zinc-700 rounded-lg px-3 py-2 text-[11px]';s.innerHTML='<option value="">Select Hero</option>'+expOpts.map(o=>`<option value="${o}">${o}</option>`).join('');c.appendChild(s);}}
 function addExp(){expCount++;renderExp();} renderExp();
 async function loadLive(){try{const r=await fetch(`${DB_URL}/players.json`);const data=await r.json()||{};allPlayers=Object.values(data);document.getElementById('count').innerText=allPlayers.length;document.getElementById('liveStatus').innerText='● Online - '+allPlayers.length;renderList(allPlayers);}catch(e){document.getElementById('liveStatus').innerText='● Offline';}}
