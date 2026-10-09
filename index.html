@@ -1,65 +1,82 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dark Lords Registry</title><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-[#0a0d14] text-white p-3">
-<div class="max-w-2xl mx-auto">
-<header class="bg-[#151a26] p-4 rounded-2xl flex justify-between items-center mb-3"><div><p class="font-bold text-sm">⚔️ DARK LORDS BATTLE REGISTRY</p><p class="text-[10px] text-gray-400">Submit directly to Admin</p></div><div id="liveStatus" class="text-[10px] text-green-400">● Online</div></header>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Dark Lords Battle Registry</title><script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script></head><body class="bg-[#0a0d14] text-white min-h-screen">
+<div class="max-w-5xl mx-auto p-3">
+<header class="bg-[#151a26] rounded-2xl p-4 flex justify-between items-center border border-zinc-800 mb-3">
+<div><h1 class="font-black text-sm">⚔️ DARK LORDS BATTLE REGISTRY</h1><p class="text-[10px] text-gray-400">All dropdowns restored - Direct to Admin</p></div>
+<div class="flex gap-2"><span id="liveStatus" class="text-[10px] text-green-400">● Online</span><button onclick="exportPlayers()" class="bg-yellow-400 text-black px-3 py-1.5 rounded-lg text-[10px] font-bold">Excel</button></div>
+</header>
 
-<div class="bg-[#1b2130] rounded-2xl p-4 space-y-3">
+<div class="grid lg:grid-cols-3 gap-3">
+<div class="lg:col-span-2 bg-[#1b2130] rounded-2xl p-4 border border-zinc-800">
+<h2 class="font-bold text-xs mb-3">👤 Player Information</h2>
 <div class="grid grid-cols-2 gap-2">
-<input id="pName" placeholder="Player Name *" class="bg-[#2a3448] p-3 rounded-xl text-xs">
-<input id="pId" placeholder="Player ID *" class="bg-[#2a3448] p-3 rounded-xl text-xs">
+<input id="pName" placeholder="Player Name *" class="bg-[#252e42] p-3 rounded-xl text-xs">
+<input id="pId" placeholder="Player ID *" class="bg-[#252e42] p-3 rounded-xl text-xs">
+<input id="alliance" placeholder="Alliance" class="bg-[#252e42] p-3 rounded-xl text-xs">
+<input id="totalPower" placeholder="Total Power (M)" class="bg-[#252e42] p-3 rounded-xl text-xs">
 </div>
-<div class="grid grid-cols-2 gap-2">
-<input id="alliance" placeholder="Alliance" class="bg-[#2a3448] p-3 rounded-xl text-xs">
-<input id="totalPower" placeholder="Total Power (M)" class="bg-[#2a3448] p-3 rounded-xl text-xs">
-</div>
-<div class="grid grid-cols-3 gap-2">
-<input id="heroPower" placeholder="Hero Power" class="bg-[#2a3448] p-2 rounded-xl text-[11px]">
-<input id="tcLevel" placeholder="TC Level" class="bg-[#2a3448] p-2 rounded-xl text-[11px]">
-<input id="ccLevel" placeholder="CC Level" class="bg-[#2a3448] p-2 rounded-xl text-[11px]">
+<div class="grid grid-cols-3 gap-2 mt-2">
+<input id="heroPower" placeholder="Hero Power" class="bg-[#252e42] p-2.5 rounded-xl text-[11px]">
+<select id="tcLevel" class="bg-[#252e42] p-2.5 rounded-xl text-[11px]"><option value="">TC Level</option><option>30</option><option>29</option><option>28</option><option>27</option><option>26</option><option>25</option></select>
+<select id="ccLevel" class="bg-[#252e42] p-2.5 rounded-xl text-[11px]"><option value="">CC Level</option><option>30</option><option>29</option><option>28</option><option>27</option><option>26</option><option>25</option></select>
 </div>
 
-<p class="text-[11px] font-bold text-purple-400 mt-2">Heroes & Gear</p>
-<div class="grid grid-cols-3 gap-2 text-[11px]">
-<input id="infHero" placeholder="Inf Hero" class="bg-[#252e42] p-2 rounded-lg">
-<input id="infSkill" placeholder="Skill" class="bg-[#252e42] p-2 rounded-lg">
-<input id="infGear" placeholder="Gear" class="bg-[#252e42] p-2 rounded-lg">
-<input id="cavHero" placeholder="Cav Hero" class="bg-[#252e42] p-2 rounded-lg">
-<input id="cavSkill" placeholder="Skill" class="bg-[#252e42] p-2 rounded-lg">
-<input id="cavGear" placeholder="Gear" class="bg-[#252e42] p-2 rounded-lg">
-<input id="arcHero" placeholder="Arc Hero" class="bg-[#252e42] p-2 rounded-lg">
-<input id="arcSkill" placeholder="Skill" class="bg-[#252e42] p-2 rounded-lg">
-<input id="arcGear" placeholder="Gear" class="bg-[#252e42] p-2 rounded-lg">
+<h2 class="font-bold text-xs mt-5 mb-2 text-purple-300">⚔️ Heroes Details</h2>
+<div class="space-y-2">
+<div class="bg-[#252e42] rounded-xl p-3"><p class="text-[10px] font-bold text-blue-400 mb-2">INFANTRY</p><div class="grid grid-cols-3 gap-2">
+<select id="infHero" class="bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Select Inf Hero</option><option>Howard</option><option>Gordan</option><option>Saul</option><option>Hilde</option><option>Chenko</option><option>Yenwoo</option><option>Amane</option><option>Kane</option><option>Stella</option><option>Yui</option><option>Phil</option></select>
+<select id="infSkill" class="bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Skill</option><option>5-5-5</option><option>5-5-4</option><option>5-4-4</option><option>4-4-4</option><option>5-5-3</option><option>Max</option></select>
+<select id="infGear" class="bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Gear</option><option>50</option><option>45</option><option>40</option><option>35</option><option>30</option><option>Gold</option><option>Purple</option></select>
+</div></div>
+<div class="bg-[#252e42] rounded-xl p-3"><p class="text-[10px] font-bold text-red-400 mb-2">CAVALRY</p><div class="grid grid-cols-3 gap-2">
+<select id="cavHero" class="bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Select Cav Hero</option><option>Howard</option><option>Gordan</option><option>Saul</option><option>Hilde</option><option>Chenko</option><option>Yenwoo</option><option>Amane</option><option>Kane</option><option>Stella</option><option>Yui</option><option>Phil</option></select>
+<select id="cavSkill" class="bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Skill</option><option>5-5-5</option><option>5-5-4</option><option>5-4-4</option><option>4-4-4</option><option>Max</option></select>
+<select id="cavGear" class="bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Gear</option><option>50</option><option>45</option><option>40</option><option>35</option><option>30</option><option>Gold</option><option>Purple</option></select>
+</div></div>
+<div class="bg-[#252e42] rounded-xl p-3"><p class="text-[10px] font-bold text-green-400 mb-2">ARCHER</p><div class="grid grid-cols-3 gap-2">
+<select id="arcHero" class="bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Select Arc Hero</option><option>Howard</option><option>Gordan</option><option>Saul</option><option>Hilde</option><option>Chenko</option><option>Yenwoo</option><option>Amane</option><option>Kane</option><option>Stella</option><option>Yui</option><option>Phil</option></select>
+<select id="arcSkill" class="bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Skill</option><option>5-5-5</option><option>5-5-4</option><option>5-4-4</option><option>4-4-4</option><option>Max</option></select>
+<select id="arcGear" class="bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Gear</option><option>50</option><option>45</option><option>40</option><option>35</option><option>30</option><option>Gold</option><option>Purple</option></select>
+</div></div>
 </div>
 
-<p class="text-[11px] font-bold text-yellow-400">Experience Skill 5 Heroes</p>
+<h2 class="font-bold text-xs mt-5 mb-2 text-yellow-300">⭐ Experience - Skill 5 Heroes</h2>
 <div id="expContainer" class="flex flex-wrap gap-2"></div>
-<button onclick="addExp()" class="bg-zinc-700 px-3 py-1 rounded-full text-[10px]">+ Add Hero</button>
+<button onclick="addExp()" class="mt-2 bg-zinc-700 px-3 py-1.5 rounded-full text-[10px]">+ Add Experience Hero</button>
 
-<p class="text-[11px] font-bold text-blue-400">Troops Quantity & Level</p>
-<div class="grid grid-cols-2 gap-2 text-[11px]">
-<input id="infQty" placeholder="Inf Qty (e.g. 200k)" class="bg-[#252e42] p-2 rounded-lg">
-<input id="infLvl" placeholder="Inf Level (T10)" class="bg-[#252e42] p-2 rounded-lg">
-<input id="cavQty" placeholder="Cav Qty" class="bg-[#252e42] p-2 rounded-lg">
-<input id="cavLvl" placeholder="Cav Level" class="bg-[#252e42] p-2 rounded-lg">
-<input id="arcQty" placeholder="Arc Qty" class="bg-[#252e42] p-2 rounded-lg">
-<input id="arcLvl" placeholder="Arc Level" class="bg-[#252e42] p-2 rounded-lg">
+<h2 class="font-bold text-xs mt-5 mb-2 text-blue-300">🪖 Troops Quantity & Level</h2>
+<div class="grid grid-cols-3 gap-2">
+<div class="bg-[#252e42] rounded-xl p-3 text-center"><p class="text-[9px]">INFANTRY</p><input id="infQty" placeholder="Qty e.g. 250k" class="w-full mt-1 bg-[#1b2130] p-2 rounded-lg text-[11px]"><select id="infLvl" class="w-full mt-1 bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Level</option><option>T11</option><option>T10</option><option>T9</option><option>T8</option></select></div>
+<div class="bg-[#252e42] rounded-xl p-3 text-center"><p class="text-[9px]">CAVALRY</p><input id="cavQty" placeholder="Qty" class="w-full mt-1 bg-[#1b2130] p-2 rounded-lg text-[11px]"><select id="cavLvl" class="w-full mt-1 bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Level</option><option>T11</option><option>T10</option><option>T9</option><option>T8</option></select></div>
+<div class="bg-[#252e42] rounded-xl p-3 text-center"><p class="text-[9px]">ARCHER</p><input id="arcQty" placeholder="Qty" class="w-full mt-1 bg-[#1b2130] p-2 rounded-lg text-[11px]"><select id="arcLvl" class="w-full mt-1 bg-[#1b2130] p-2 rounded-lg text-[11px]"><option value="">Level</option><option>T11</option><option>T10</option><option>T9</option><option>T8</option></select></div>
 </div>
 
-<button onclick="submitPlayer()" class="w-full mt-4 bg-gradient-to-r from-purple-600 to-blue-600 py-3 rounded-xl font-bold text-sm">✅ Submit - Admin Will See Directly</button>
-<p class="text-[9px] text-center text-gray-500">No code needed. Just submit.</p>
+<button onclick="submitPlayer()" class="w-full mt-6 bg-gradient-to-r from-purple-600 to-blue-600 py-3.5 rounded-xl font-black text-sm">✅ SUBMIT TO ADMIN DIRECTLY</button>
+</div>
+
+<div class="bg-[#1b2130] rounded-2xl p-4 border border-zinc-800 h-fit">
+<div class="flex justify-between items-center mb-3"><h2 class="font-bold text-xs">📋 Live Players (<span id="count">0</span>)</h2><button onclick="loadLive()" class="text-[10px] bg-[#252e42] px-2 py-1 rounded">Refresh</button></div>
+<input id="searchBox" onkeyup="filterPlayers()" placeholder="Search Name / ID / Alliance" class="w-full bg-[#252e42] p-2.5 rounded-xl text-[11px] mb-3">
+<div id="playerList" class="space-y-2 max-h-[80vh] overflow-auto text-[11px]"></div>
 </div>
 </div>
-<div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-white text-black px-6 py-3 rounded-full text-xs font-bold hidden"></div>
+</div>
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white text-black px-6 py-3 rounded-full text-xs font-bold hidden z-50"></div>
 <script>
 const DB_URL="https://dark-lords-registry-default-rtdb.firebaseio.com";
-let expCount=4, expOpts=['Howard','Gordan','Saul','Hilde','Chenko','Amane','Yenwoo','Others'];
-function renderExp(){const c=document.getElementById('expContainer');c.innerHTML='';for(let i=0;i<expCount;i++){const s=document.createElement('select');s.id='exp_'+i;s.className='bg-[#1b2130] border border-zinc-700 rounded-lg px-2 py-1.5 text-[11px]';s.innerHTML='<option value="">Select</option>'+expOpts.map(o=>`<option>${o}</option>`).join('');c.appendChild(s);}}
+let allPlayers=[], expCount=4, expOpts=['Howard','Gordan','Saul','Hilde','Chenko','Amane','Yenwoo','Kane','Stella','Yui'];
+function renderExp(){const c=document.getElementById('expContainer');c.innerHTML='';for(let i=0;i<expCount;i++){const s=document.createElement('select');s.id='exp_'+i;s.className='bg-[#252e42] border border-zinc-700 rounded-lg px-3 py-2 text-[11px]';s.innerHTML='<option value="">Select Hero</option>'+expOpts.map(o=>`<option value="${o}">${o}</option>`).join('');c.appendChild(s);}}
 function addExp(){expCount++;renderExp();} renderExp();
+async function loadLive(){try{const r=await fetch(`${DB_URL}/players.json`);const data=await r.json()||{};allPlayers=Object.values(data);document.getElementById('count').innerText=allPlayers.length;document.getElementById('liveStatus').innerText='● Online - '+allPlayers.length;renderList(allPlayers);}catch(e){document.getElementById('liveStatus').innerText='● Offline';}}
+function renderList(list){document.getElementById('playerList').innerHTML=list.map(p=>`<div class="bg-[#252e42] p-2.5 rounded-xl"><b>${p.name}</b> [${p.alliance||'-'}] ID:${p.id} P:${p.totalPower}M<br><span class="text-[9px] text-gray-400">Inf:${p.infHero||'-'} S:${p.infSkill||'-'} G:${p.infGear||'-'}<br>Cav:${p.cavHero||'-'} S:${p.cavSkill||'-'} G:${p.cavGear||'-'}<br>Arc:${p.arcHero||'-'} S:${p.arcSkill||'-'} G:${p.arcGear||'-'}<br>Exp:${(p.exp||[]).join(',')}<br>I:${p.infQty}(${p.infLvl}) C:${p.cavQty}(${p.cavLvl}) A:${p.arcQty}(${p.arcLvl})</span></div>`).join('');}
+function filterPlayers(){const q=document.getElementById('searchBox').value.toLowerCase();renderList(allPlayers.filter(p=>`${p.name} ${p.id} ${p.alliance}`.toLowerCase().includes(q)));}
 async function submitPlayer(){
  const d={name:document.getElementById('pName').value.trim(),id:document.getElementById('pId').value.trim(),alliance:document.getElementById('alliance').value.trim(),totalPower:document.getElementById('totalPower').value.trim(),heroPower:document.getElementById('heroPower').value.trim(),tc:document.getElementById('tcLevel').value.trim(),cc:document.getElementById('ccLevel').value.trim(),infHero:document.getElementById('infHero').value.trim(),infSkill:document.getElementById('infSkill').value.trim(),infGear:document.getElementById('infGear').value.trim(),cavHero:document.getElementById('cavHero').value.trim(),cavSkill:document.getElementById('cavSkill').value.trim(),cavGear:document.getElementById('cavGear').value.trim(),arcHero:document.getElementById('arcHero').value.trim(),arcSkill:document.getElementById('arcSkill').value.trim(),arcGear:document.getElementById('arcGear').value.trim(),exp:[],infQty:document.getElementById('infQty').value.trim(),infLvl:document.getElementById('infLvl').value.trim(),cavQty:document.getElementById('cavQty').value.trim(),cavLvl:document.getElementById('cavLvl').value.trim(),arcQty:document.getElementById('arcQty').value.trim(),arcLvl:document.getElementById('arcLvl').value.trim(),time:new Date().toLocaleString()};
  if(!d.name||!d.id){alert('Name and ID required');return;}
  for(let i=0;i<expCount;i++){const v=document.getElementById('exp_'+i)?.value;if(v)d.exp.push(v);}
  document.getElementById('liveStatus').innerText='⏳ Sending...';
- try{await fetch(`${DB_URL}/players/${d.id}.json`,{method:'PUT',body:JSON.stringify(d)});toast('✅ Submitted! Admin sees: '+d.name+' ID:'+d.id);document.getElementById('liveStatus').innerText='● Submitted';}catch(e){toast('❌ Failed - check Firebase rules');document.getElementById('liveStatus').innerText='● Offline';}
+ try{await fetch(`${DB_URL}/players/${d.id}.json`,{method:'PUT',body:JSON.stringify(d)});toast('✅ Submitted: '+d.name);loadLive();}catch(e){toast('❌ Failed');}
 }
-function toast(m){const e=document.getElementById('toast');e.innerText=m;e.classList.remove('hidden');setTimeout(()=>e.classList.add('hidden'),3500);}
+function exportPlayers(){if(allPlayers.length==0){alert('No players');return;}const rows=[['Alliance','Name','ID','Total Power','Hero Power','TC','CC','Inf Hero','Inf Skill','Inf Gear','Cav Hero','Cav Skill','Cav Gear','Arc Hero','Arc Skill','Arc Gear','Exp Skill5','Inf Qty','Inf Level','Cav Qty','Cav Level','Arc Qty','Arc Level'],...allPlayers.map(p=>[p.alliance,p.name,p.id,p.totalPower,p.heroPower,p.tc,p.cc,p.infHero,p.infSkill,p.infGear,p.cavHero,p.cavSkill,p.cavGear,p.arcHero,p.arcSkill,p.arcGear,(p.exp||[]).join('/'),p.infQty,p.infLvl,p.cavQty,p.cavLvl,p.arcQty,p.arcLvl])];const ws=XLSX.utils.aoa_to_sheet(rows);const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Players');XLSX.writeFile(wb,'DarkLords_Players.xlsx');}
+function toast(m){const e=document.getElementById('toast');e.innerText=m;e.classList.remove('hidden');setTimeout(()=>e.classList.add('hidden'),3000);}
+loadLive();
 </script></body></html>
