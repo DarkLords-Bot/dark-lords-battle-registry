@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dark Lords - Auto Lineup 2 Teams</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+</head><body class="bg-[#0f1117] text-white min-h-screen">
+<header class="bg-[#161a23] border-b border-zinc-800 px-4 py-3 flex justify-between"><div class="flex gap-2 items-center"><div class="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center font-bold">DL</div><div><p class="font-bold text-sm">Dark Lords</p><p class="text-[10px] text-purple-400">Auto Lineup • Castle Battle</p></div></div><div class="bg-yellow-400 text-black text-xs px-3 py-1 rounded-full font-bold">2 TEAMS AUTO</div></header>
+<div class="max-w-6xl mx-auto p-4">
+<div class="bg-[#1c212e] rounded-2xl p-5 border border-zinc-800">
+<h1 class="text-2xl font-bold">KingShot Castle Battle - Auto Lineup 2 Teams</h1>
+<p class="text-gray-400 text-sm mt-2">Add kingdom players with power. Click Auto Lineup → splits into 2 balanced rally teams by power.</p>
+<div class="flex flex-wrap gap-2 mt-4">
+<input id="bulk" placeholder="Paste: Name Power (e.g. ShadowFang 62.4)" class="bg-[#2a3142] rounded-xl px-4 py-3 flex-1 min-w-[280px] outline-none text-sm">
+<button onclick="addFromBulk()" class="bg-zinc-800 px-5 py-3 rounded-xl text-sm">+ Add</button>
+<button onclick="autoLineup()" class="bg-purple-600 px-6 py-3 rounded-xl text-sm font-bold">⚔️ Auto Lineup 2 Teams</button>
+<button onclick="exportExcel()" class="bg-yellow-400 text-black px-6 py-3 rounded-xl text-sm font-bold">⬇ Export Excel</button>
+</div>
+<div class="overflow-x-auto mt-6">
+<table class="w-full text-sm"><thead class="text-gray-500 text-xs"><tr class="border-b border-zinc-800"><th class="text-left py-2">Player</th><th class="text-left py-2">Power M</th><th class="text-left py-2">Tier</th><th class="py-2"></th></tr></thead><tbody id="inputBody"></tbody></table>
+</div>
+</div>
+<div class="grid md:grid-cols-2 gap-4 mt-6">
+<div class="bg-[#1c212e] rounded-2xl border border-emerald-800/50 p-5"><div class="flex justify-between"><h2 class="font-bold text-emerald-400">🛡️ Team A - Rally 1</h2><span id="teamAPower" class="text-xs bg-emerald-900/50 px-3 py-1 rounded-full">0 M</span></div><div id="teamA" class="mt-4 space-y-2 text-sm"></div></div>
+<div class="bg-[#1c212e] rounded-2xl border border-blue-800/50 p-5"><div class="flex justify-between"><h2 class="font-bold text-blue-400">⚔️ Team B - Rally 2</h2><span id="teamBPower" class="text-xs bg-blue-900/50 px-3 py-1 rounded-full">0 M</span></div><div id="teamB" class="mt-4 space-y-2 text-sm"></div></div>
+</div>
+</div>
+<script>
+let players=[];
+function addPlayer(name,power,tier='T11'){ if(!name) return; players.push({name,power:parseFloat(power)||0,tier}); renderInput(); }
+function addFromBulk(){ const v=document.getElementById('bulk').value.trim(); if(!v) return; v.split('\n').forEach(line=>{ const parts=line.trim().split(/\s+/); if(parts.length>=2){ const power=parts.pop(); const name=parts.join(' '); addPlayer(name,power);} }); document.getElementById('bulk').value='';}
+function renderInput(){ const tbody=document.getElementById('inputBody'); tbody.innerHTML=''; players.sort((a,b)=>b.power-a.power); players.forEach((p,i)=>{ const tr=document.createElement('tr'); tr.className='border-b border-zinc-800/30'; tr.innerHTML=`<td class="py-2"><input value="${p.name}" onchange="players[${i}].name=this.value" class="bg-transparent outline-none w-full"></td><td class="py-2"><input type="number" value="${p.power}" onchange="players[${i}].power=parseFloat(this.value)||0" class="bg-[#2a3142] rounded px-2 py-1 w-20"></td><td class="py-2"><select onchange="players[${i}].tier=this.value" class="bg-[#2a3142] rounded px-2 py-1"><option>T11</option><option>T10</option></select></td><td class="py-2"><button onclick="players.splice(${i},1);renderInput()" class="text-red-400">✕</button></td>`; tbody.appendChild(tr); });}
+function autoLineup(){ if(players.length==0){alert('Add players first');return;} players.sort((a,b)=>b.power-a.power); let teamA=[],teamB=[]; let totalA=0,totalB=0; players.forEach((p)=>{ if(totalA<=totalB){teamA.push(p);totalA+=p.power;} else {teamB.push(p);totalB+=p.power;} }); renderTeams(teamA,teamB,totalA,totalB);}
+function renderTeams(teamA,teamB,totalA,totalB){ document.getElementById('teamAPower').innerText=totalA.toFixed(1)+' M Total'; document.getElementById('teamBPower').innerText=totalB.toFixed(1)+' M Total'; document.getElementById('teamA').innerHTML=teamA.map((p,i)=>`<div class="flex justify-between bg-emerald-900/20 p-2 rounded-lg"><span>${i+1}. ${p.name}</span><span class="font-bold">${p.power}M</span></div>`).join(''); document.getElementById('teamB').innerHTML=teamB.map((p,i)=>`<div class="flex justify-between bg-blue-900/20 p-2 rounded-lg"><span>${i+1}. ${p.name}</span><span class="font-bold">${p.power}M</span></div>`).join(''); window.lastTeams={teamA,teamB,totalA,totalB};}
+function exportExcel(){ if(!window.lastTeams){autoLineup();} const {teamA,teamB}=window.lastTeams; const rows=[['Dark Lords - Castle Battle Auto Lineup'],[],['Team A - Rally 1','Power','Tier'],...teamA.map(p=>[p.name,p.power,p.tier]),[],[`Total: ${window.lastTeams.totalA.toFixed(1)} M`],[],['Team B - Rally 2','Power','Tier'],...teamB.map(p=>[p.name,p.power,p.tier]),[],[`Total: ${window.lastTeams.totalB.toFixed(1)} M`]]; const ws=XLSX.utils.aoa_to_sheet(rows); const wb=XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb,ws,'Auto Lineup'); XLSX.writeFile(wb,'DarkLords_2Teams_AutoLineup.xlsx');}
+[['ShadowFang',71.2],['FrostWolf_21',62.4],['DragonPulse',58.9],['IronHawk',55.6],['NightStalker',53.8],['Phantom',49.1],['BlazeLord',47.3],['StormRider',44.5],['IceQueen',42.1],['WarChief',38.9]].forEach(([n,p])=>addPlayer(n,p));
+</script></body></html>
